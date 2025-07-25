@@ -28,9 +28,8 @@ jobs:
 
       - uses: actions/checkout@v4
 
-      - name: Load application yml files
+      - name: Load appliciton yml files
         run: |
-          mkdir -p ./src/main/resources
           cd ./src/main/resources
           touch ./application.yml
           touch ./application-dev.yml
@@ -42,9 +41,6 @@ jobs:
 
       - name: Build with Gradle
         run: ./gradlew clean build -x test
-
-      - name: 확인 - build/libs 안 파일 목록 보기
-        run: ls -al build/libs
 
       - name: Docker Login
         uses: docker/login-action@v3.4.0
