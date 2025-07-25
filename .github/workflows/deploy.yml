@@ -36,6 +36,9 @@ jobs:
           echo "${{ secrets.APPLICATION }}" > ./application.yml
           echo "${{ secrets.APPLICATION_PROD }}" > ./application-prod.yml
 
+      - name: Clean Gradle cache
+        run: ./gradlew clean --no-build-cache
+
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
 
