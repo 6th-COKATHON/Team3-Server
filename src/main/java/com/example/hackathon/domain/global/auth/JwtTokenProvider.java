@@ -1,23 +1,22 @@
 package com.example.hackathon.domain.global.auth;
 
-import java.nio.charset.StandardCharsets;
-import java.util.Date;
-import java.security.Key;
-
+import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.JwtException;
 import io.jsonwebtoken.Jwts;
-import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.security.Keys;
+import java.nio.charset.StandardCharsets;
+import java.security.Key;
+import java.util.Date;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
 
 @Component
-public class JwtTokenProvider{
+public class JwtTokenProvider {
 
     private final Key secretKey;
     private final long EXPIRATION_TIME = 1000 * 60 * 60; // 1시간
 
-    public JwtTokenProvider(@Value("${jwt.secret:ThisIsADefaultSecretKeyWithAtLeast32BytesLength123!}") String secret) {
+    public JwtTokenProvider(@Value("${jwt.secret}") String secret) {
         System.out.println("✅ Using JWT secret key with length: " + secret.getBytes().length * 8 + " bits");
 
         try {
@@ -61,6 +60,7 @@ public class JwtTokenProvider{
     public String getUserId(String token) {
         return getClaims(token).get("userId", String.class);
     }
+
     public String getRoomId(String token) {
         return getClaims(token).get("roomId", String.class);
     }

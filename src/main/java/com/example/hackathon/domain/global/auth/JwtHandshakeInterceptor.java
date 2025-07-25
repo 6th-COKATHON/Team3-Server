@@ -1,20 +1,20 @@
 package com.example.hackathon.domain.global.auth;
 
 import jakarta.servlet.http.HttpServletRequest;
+import java.util.Map;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.server.ServerHttpRequest;
 import org.springframework.http.server.ServerHttpResponse;
 import org.springframework.http.server.ServletServerHttpRequest;
-import org.springframework.web.socket.server.HandshakeInterceptor;
+import org.springframework.stereotype.Component;
 import org.springframework.web.socket.WebSocketHandler;
+import org.springframework.web.socket.server.HandshakeInterceptor;
 
-import java.util.Map;
-
+@Component
 @RequiredArgsConstructor
 public class JwtHandshakeInterceptor implements HandshakeInterceptor {
 
     private final JwtTokenProvider jwtTokenProvider;
-
 
     //핸드셰이크 전 JWT 토큰 검증, 유저 정보 웹소켓 세션에 저장
     @Override
@@ -37,7 +37,7 @@ public class JwtHandshakeInterceptor implements HandshakeInterceptor {
                     // 토큰에서 필요한 정보 추출
                     String userId = jwtTokenProvider.getUserId(token);
                     String roomId = jwtTokenProvider.getRoomId(token);
-
+                    System.out.println("유저 아이디" + userId);
                     // WebSocket 세션에 사용자 정보 저장
                     attributes.put("userId", userId);
                     attributes.put("roomId", roomId);

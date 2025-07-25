@@ -24,14 +24,12 @@ public class SecurityConfig {
         http
                 .csrf(AbstractHttpConfigurer::disable)
                 .authorizeHttpRequests(auth -> auth
-                        .requestMatchers(
-                                "/rooms/**/nickname",   // 닉네임 등록 허용
-                                "/public/**",           // 기타 공개 API
-                                "/static/**"            // 정적 리소스
+                        .requestMatchers("/**"
                         ).permitAll()
                         .anyRequest().authenticated()
                 )
-                .addFilterBefore(jwtAuthenticationFilter, org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.class)
+                .addFilterBefore(jwtAuthenticationFilter,
+                        org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter.class)
                 .securityContext(context -> context.requireExplicitSave(false));
 
         return http.build();
