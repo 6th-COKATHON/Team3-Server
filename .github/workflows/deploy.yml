@@ -30,6 +30,7 @@ jobs:
 
       - name: Load appliciton yml files
         run: |
+          mkdir -p src/main/resources
           cd ./src/main/resources
           touch ./application.yml
           touch ./application-dev.yml
