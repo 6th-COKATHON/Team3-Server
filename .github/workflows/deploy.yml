@@ -28,13 +28,13 @@ jobs:
 
       - uses: actions/checkout@v4
 
-      - name: Load appliciton yml files
+      - name: Load application yml files
         run: |
           cd ./src/main/resources
           touch ./application.yml
-          touch ./application-prod.yml
+          touch ./application-dev.yml
           echo "${{ secrets.APPLICATION }}" > ./application.yml
-          echo "${{ secrets.APPLICATION_PROD }}" > ./application-prod.yml
+          echo "${{ secrets.APPLICATION_PROD }}" > ./application-dev.yml
 
       - name: Grant execute permission for gradlew
         run: chmod +x ./gradlew
